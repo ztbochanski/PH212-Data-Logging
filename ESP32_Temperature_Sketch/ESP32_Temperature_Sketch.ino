@@ -81,12 +81,9 @@ void loop() {
     // Read sensors
     sensors.requestTemperatures();
     float temperatureC = sensors.getTempCByIndex(0);
-    float temperatureF = sensors.getTempFByIndex(0);
     // Send readings to firebase
-    Firebase.RTDB.pushTimestamp(&fbdo, "temperatures/c/timestamp");
-    Firebase.RTDB.pushTimestamp(&fbdo, "temperatures/f/timestamp");
-    Firebase.RTDB.pushFloat(&fbdo, "temperatures/c", temperatureC);
-    Firebase.RTDB.pushFloat(&fbdo, "temperatures/f", temperatureF);
+    Firebase.RTDB.pushTimestamp(&fbdo, "timestamp/");
+    Firebase.RTDB.pushFloat(&fbdo, "temperatures/", temperatureC);
     
   }
 

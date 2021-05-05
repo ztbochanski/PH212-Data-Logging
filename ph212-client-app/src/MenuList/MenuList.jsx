@@ -7,20 +7,24 @@ import DescriptionIcon from '@material-ui/icons/Description';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 
+function ListItemLink(props) {
+  return <ListItem button component="a" {...props} />;
+}
+
 export const mainListItems = (
   <div>
-    <ListItem button>
+    <ListItemLink href="https://github.com/ztbochanski/PH212-Data-Logging/blob/main/PH212_Data_Logging.ipynb" target="_blank">
       <ListItemIcon>
         <DescriptionIcon />
       </ListItemIcon>
-      <ListItemText primary="Documentation" />
-    </ListItem>
-    <ListItem button>
+      <ListItemText primary="Notebook" />
+    </ListItemLink>
+    <ListItemLink href="https://github.com/ztbochanski/PH212-Data-Logging" target="_blank">
       <ListItemIcon>
         <GitHubIcon />
       </ListItemIcon>
       <ListItemText primary="Source Code" />
-    </ListItem>
+    </ListItemLink>
   </div>
 );
 
