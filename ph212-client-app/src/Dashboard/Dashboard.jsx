@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -18,6 +19,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import { mainListItems, secondaryListItems } from '../MenuList/MenuList';
 import DataTable from '../DataTable/DataTable';
 import CurrentData from '../CurrentData/CurrentData';
+import Graph from '../Graph/Graph';
+import dbRef from '../DataHandler/DataHandler';
+
 
 function Footer() {
   return (
@@ -110,13 +114,15 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   fixedHeight: {
-    height: 240,
+    height: 300,
   },
 }));
 
 export default function Dashboard() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
+  const [measurements, setMeasurements] = useState([]);
+  const [latest, setLatest] = useState(0);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -124,6 +130,44 @@ export default function Dashboard() {
     setOpen(false);
   };
   const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+  const onDataChange = (items) => {
+    let data_reference_array = [];
+    items.forEach(item => {
+        let key = item.key;
+        let data = item.val();
+        data_reference_array.push({
+            key: key,
+            data: data,
+        });
+    });
+    let measurements_array = [];
+    let tempValues = Object.values(data_reference_array[0].data);
+    let tempKeys = Object.keys(data_reference_array[0].data);
+    let timeValues = Object.values(data_reference_array[1].data);
+    for (var i = 0; i < tempValues.length; i++) {
+        let key = tempKeys[i];
+        let temp = tempValues[i];
+        let timestamp = timeValues[i];
+        let time = new Date(timestamp).toUTCString();
+        measurements_array.push({
+            id: key,
+            measurement: temp,
+            time: time,
+        })
+    }
+    setMeasurements(measurements_array);
+    setLatest(measurements_array[measurements_array.length -1].measurement)
+  };
+
+  useEffect(() => {
+      dbRef.on("value", onDataChange);
+
+      return () => {
+          dbRef.off("value", onDataChange);
+      };
+
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -167,19 +211,19 @@ export default function Dashboard() {
             {/* Graph */}
             <Grid item xs={12} md={8} lg={9}>
               <Paper className={fixedHeightPaper}>
-                Graph
+                <Graph measurements={measurements} />
               </Paper>
             </Grid>
             {/* Current Temp */}
             <Grid item xs={12} md={4} lg={3}>
               <Paper className={fixedHeightPaper}>
-                <CurrentData />
+                <CurrentData latest={latest} />
               </Paper>
             </Grid>
             {/* Data Table */}
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <DataTable />
+                <DataTable measurements={measurements} />
               </Paper>
             </Grid>
           </Grid>

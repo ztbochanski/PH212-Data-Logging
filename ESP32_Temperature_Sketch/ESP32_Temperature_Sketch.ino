@@ -13,8 +13,8 @@
 // Firebase
 #define DATABASE_URL "https://ph212-iot-default-rtdb.firebaseio.com/"
 #define API_KEY "AIzaSyAPv8bo2aRQk4whWDRUJTXrcoE_Hy17Xv4"
-#define USER_EMAIL "ztbochanski@gmail.com"
-#define USER_PASSWORD "nordicskiing"
+#define USER_EMAIL "loggeraccount@logger.com"
+#define USER_PASSWORD "datalogger"
 
 // WiFi
 #define WIFI_SSID "juniper2.4"
@@ -28,7 +28,7 @@
 
 // sketch variables for interval to record temp
 unsigned long previousMillis = 0;
-const long interval = 10000;
+const long interval = 30000;
 
 // Firebase data object
 FirebaseData fbdo;
@@ -68,7 +68,6 @@ void setup() {
   config.token_status_callback = tokenStatusCallback;
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
- 
 }
  
 void loop() {
@@ -81,10 +80,10 @@ void loop() {
     // Read sensors
     sensors.requestTemperatures();
     float temperatureC = sensors.getTempCByIndex(0);
+    Serial.println(temperatureC);
     // Send readings to firebase
     Firebase.RTDB.pushTimestamp(&fbdo, "timestamp/");
     Firebase.RTDB.pushFloat(&fbdo, "temperatures/", temperatureC);
     
   }
-
-  }
+}
