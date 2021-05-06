@@ -1,76 +1,50 @@
 import React from 'react';
+import { useTheme } from '@material-ui/core/styles';
+import { LineChart, Line, XAxis, YAxis, Label, ResponsiveContainer, Tooltip } from 'recharts';
 import Title from '../Title/Title';
-import { ResponsiveLine } from '@nivo/line'
 
-const Graph = () => {
+const Graph = (props) => {
+    
+    
+    const data = []
+    props.measurements.map((measurement) => (
+        data.push({
+            time: new Date(measurement.time).getMinutes(),
+            temperature: measurement.measurement,
+        })
+    ))
+
+    const theme = useTheme();
     return (
         <React.Fragment>
-            <Title>Temp Graph</Title>
-            <ResponsiveLine
-        data={data}
-        margin={{ top: 20, right: 30, bottom: 100, left: 60 }}
-        xScale={{ type: 'point' }}
-        yScale={{ type: 'linear', min: 'auto', max: 'auto', stacked: true, reverse: false }}
-        yFormat=" >-.2f"
-        curve="basis"
-        axisTop={null}
-        axisRight={null}
-        axisBottom={{
-            orient: 'bottom',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Time (h)',
-            legendOffset: 36,
-            legendPosition: 'middle'
-        }}
-        axisLeft={{
-            orient: 'left',
-            tickSize: 5,
-            tickPadding: 5,
-            tickRotation: 0,
-            legend: 'Temperature (C)',
-            legendOffset: -40,
-            legendPosition: 'middle'
-        }}
-        enableGridX={false}
-        enableGridY={false}
-        gridYValues={1}
-        colors={{ scheme: 'pink_yellowGreen' }}
-        pointSize={8}
-        pointColor={{ theme: 'background' }}
-        pointBorderWidth={2}
-        pointBorderColor={{ from: 'serieColor' }}
-        pointLabelYOffset={-12}
-        enableArea={true}
-        areaBaselineValue={40}
-        areaOpacity={0.1}
-        useMesh={true}
-        legends={[]}
-    />
+            <Title>Temp Graph (C) </Title>
+            <ResponsiveContainer>
+                <LineChart
+                data={data}
+                margin={{
+                    top: 14,
+                    right: 16,
+                    bottom: 0,
+                    left: 22,
+                }}
+                >
+                <XAxis dataKey="time" stroke={theme.palette.text.secondary} />
+                <YAxis stroke={theme.palette.text.secondary}>
+                    <Label
+                    angle={270}
+                    position="left"
+                    style={{ textAnchor: 'middle', fill: theme.palette.text.primary }}
+                    >
+                    Temperature (C)
+                    </Label>
+                </YAxis>
+                <Tooltip contentStyle={{ backgroundColor: '#4A4A4A' }} />
+                <Line type="monotone" dataKey="temperature" stroke={theme.palette.primary.main} dot={false} />
+                </LineChart>
+            </ResponsiveContainer>
         </React.Fragment>  
     )
 };
 
 export default Graph;
 
-const data = [
-    {
-      "id": "temperature",
-      "color": "hsl(200, 70%, 50%)",
-      "data": [
-        {
-          "x": "plane",
-          "y": 22
-        },
-        {
-          "x": "helicopter",
-          "y": 23
-        },
-        {
-          "x": "boat",
-          "y": 26
-        },
-      ]
-    }
-  ]

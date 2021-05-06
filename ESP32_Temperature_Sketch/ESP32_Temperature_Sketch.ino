@@ -28,7 +28,7 @@
 
 // sketch variables for interval to record temp
 unsigned long previousMillis = 0;
-const long interval = 30000;
+const long interval = 120000;
 
 // Firebase data object
 FirebaseData fbdo;
