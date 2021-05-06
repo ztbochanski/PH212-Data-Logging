@@ -1,6 +1,0 @@
-#define SECRET_EMAIL "loggeraccount@logger.com"
-#define SECRET_PASSWORD "datalogger"
-#define SECRET_API_KEY "AIzaSyAPv8bo2aRQk4whWDRUJTXrcoE_Hy17Xv4"
-#define SECRET_DATABASE_URL "https://ph212-iot-default-rtdb.firebaseio.com/"
-#define SECRET_WIFI_SSID "juniper2.4"
-#define SECRET_WIFI_PASSWORD "jackrabbit"
