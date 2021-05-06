@@ -1,27 +1,29 @@
+
 //Import Libraries
 #include <WiFi.h>
 #include <OneWire.h>
 #include <DallasTemperature.h>
 #include <Firebase_ESP_Client.h>
 #include "time.h"
+#include "credentials.h"
 
 // Provide the token generation process info.
 #include "addons/TokenHelper.h"
 // Provide the RTDB payload printing info and other helper functions.
 #include "addons/RTDBHelper.h"
- 
+
 // Firebase
-#define DATABASE_URL "https://ph212-iot-default-rtdb.firebaseio.com/"
-#define API_KEY "AIzaSyAPv8bo2aRQk4whWDRUJTXrcoE_Hy17Xv4"
-#define USER_EMAIL "loggeraccount@logger.com"
-#define USER_PASSWORD "datalogger"
+#define DATABASE_URL SECRET_DATABASE_URL
+#define API_KEY SECRET_API_KEY
+#define USER_EMAIL SECRET_EMAIL
+#define USER_PASSWORD SECRET_PASSWORD
 
 // WiFi
-#define WIFI_SSID "juniper2.4"
-#define WIFI_PASSWORD "jackrabbit"
+#define WIFI_SSID SECRET_WIFI_SSID
+#define WIFI_PASSWORD SECRET_WIFI_PASSWORD
 
 // Serial and Board
-#define BAUDRATE  115200
+#define BAUDRATE 115200
 #define ONE_WIRE_BUS 4
 
 // time
@@ -40,21 +42,23 @@ FirebaseAuth auth;
 FirebaseConfig config;
 
 // Onewire communication protocol instance
-OneWire oneWire(ONE_WIRE_BUS); 
+OneWire oneWire(ONE_WIRE_BUS);
 
 // oneWire reference to DallasTemperature
 DallasTemperature sensors(&oneWire);
 
-void setup() {
+void setup()
+{
   // time
-  
+
   // sensors
   Serial.begin(BAUDRATE);
   sensors.begin();
 
   // wifi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED)
+  {
     delay(500);
     Serial.println("Connecting to WiFi..");
   }
@@ -69,12 +73,14 @@ void setup() {
   Firebase.begin(&config, &auth);
   Firebase.reconnectWiFi(true);
 }
- 
-void loop() {
+
+void loop()
+{
   // check time to update db
   unsigned long currentMillis = millis();
 
-  if (currentMillis - previousMillis >= interval) {
+  if (currentMillis - previousMillis >= interval)
+  {
     // save the last time data sent to Fireabase
     previousMillis = currentMillis;
     // Read sensors
@@ -84,6 +90,5 @@ void loop() {
     // Send readings to firebase
     Firebase.RTDB.pushTimestamp(&fbdo, "timestamp/");
     Firebase.RTDB.pushFloat(&fbdo, "temperatures/", temperatureC);
-    
   }
 }
