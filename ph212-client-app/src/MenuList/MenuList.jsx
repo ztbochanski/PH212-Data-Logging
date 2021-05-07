@@ -3,10 +3,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import DescriptionIcon from '@material-ui/icons/Description';
 import GitHubIcon from '@material-ui/icons/GitHub';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import CodeIcon from '@material-ui/icons/Code';
+import LocalCafeIcon from '@material-ui/icons/LocalCafe';
 
 function ListItemLink(props) {
   return <ListItem button component="a" {...props} />;
@@ -16,9 +16,9 @@ export const mainListItems = (
   <div>
     <ListItemLink href="https://ztbochanski.github.io/PH212-Data-Logging/" target="_blank">
       <ListItemIcon>
-        <DescriptionIcon />
+        <LocalCafeIcon />
       </ListItemIcon>
-      <ListItemText primary="Notebook" />
+      <ListItemText primary="Jupyter Notebook" />
     </ListItemLink>
     <ListItemLink href="https://github.com/ztbochanski/PH212-Data-Logging" target="_blank">
       <ListItemIcon>
