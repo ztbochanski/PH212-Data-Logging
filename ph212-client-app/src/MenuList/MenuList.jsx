@@ -15,7 +15,7 @@ function ListItemLink(props) {
 
 export const mainListItems = (
   <div>
-    <ListItemLink href="https://github.com/ztbochanski/PH212-Data-Logging/blob/main/PH212_Data_Logging.ipynb" target="_blank">
+    <ListItemLink href="https://ztbochanski.github.io/PH212-Data-Logging/" target="_blank">
       <ListItemIcon>
         <DescriptionIcon />
       </ListItemIcon>
@@ -25,7 +25,7 @@ export const mainListItems = (
       <ListItemIcon>
         <GitHubIcon />
       </ListItemIcon>
-      <ListItemText primary="Source Code" />
+      <ListItemText primary="Project Code" />
     </ListItemLink>
   </div>
 );
@@ -39,7 +39,7 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="CSV" />
     </ListItem>
-    <ListItem button>
+    <ListItem button onClick={test}>
       <ListItemIcon>
         <CodeIcon />
       </ListItemIcon>
@@ -47,3 +47,7 @@ export const secondaryListItems = (
     </ListItem>
   </div>
 );
+
+const test = () => {
+  console.log("test");
+}
