@@ -8,12 +8,7 @@ import GitHubIcon from '@material-ui/icons/GitHub';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import CodeIcon from '@material-ui/icons/Code';
 
-const test = () => {
-  console.log("test");
-}
-
 function ListItemLink(props) {
-  
   return <ListItem button component="a" {...props} />;
 }
 
@@ -43,7 +38,7 @@ export const secondaryListItems = (
       </ListItemIcon>
       <ListItemText primary="CSV" />
     </ListItem>
-    <ListItem button onClick={test}>
+    <ListItem button >
       <ListItemIcon>
         <CodeIcon />
       </ListItemIcon>
