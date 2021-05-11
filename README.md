@@ -96,11 +96,11 @@ void setup()
 
 void loop()
 {
-  # Create time checker when to execute code (millis)
+  // Create time checker when to execute code (millis)
   
-  # Read sensors
+  // Read sensors
   
-  # Send readings to server every 2 min... 30 readings / hour
+  // Send readings to server every 2 min... 30 readings / hour
 }
 ```
 
@@ -109,12 +109,12 @@ We want time and a temp value...
 ```json
 {
   "temperature": {
-    "id hash": temp value celcius,
-    "id hash": temp value celcius
+    "id hash": "temp value celsius",
+    "id hash": "temp value celsius"
   },
   "timestamp": {
-    "id hash": temp value celcius,
-    "id hash": temp value celcius
+    "id hash": "temp value celsius",
+    "id hash": "temp value celsius"
   }
 }
 ```
