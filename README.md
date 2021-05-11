@@ -3,6 +3,9 @@
 View data here:
 ## [DS18B20 Data Viewer](https://ph212-iot.web.app/)
 
+Data logger here:
+## [esp32-data-logger](https://github.com/ztbochanski/esp32-data-logger)
+
 ## Requirements
 
 - Data collection (temperature)
