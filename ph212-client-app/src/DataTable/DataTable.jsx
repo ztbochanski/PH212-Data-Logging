@@ -32,7 +32,7 @@ const TemperatureTable = ({measurements}) => {
     const csvReport = {
         data: dataArray,
         headers: null,
-        filename: 'Lab_Data.csv'
+        filename: 'ds18b20_data.csv'
     };
 
     return (
